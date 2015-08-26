@@ -6,7 +6,7 @@ use File::Copy qw(copy);
 use File::Find;
 
 my $working_dir = $ARGV[0];
-my $tmpfile = '/tmp/qwertyuioplkjhgfdsa';
+my $tmpfile = '/tmp/poiuytrewq';
 
 my @remove_list = (
     'import android.util.Log;',
@@ -34,8 +34,8 @@ sub process_file {
             open (OUTPUT, '>', $tmpfile) || die "can't open $tmpfile: $!";
 
             while (<INPUT>) {
-                if (/^\s*$pattern/) {
-                    s/^(\s*)($pattern)/$1\/\/\/\*comment by tool\*\/$2/g;
+                if (/^\s*\/\/\/\*comment by tool\*\/$pattern/) {
+                    s/^(\s*)\/\/\/\*comment by tool\*\/($pattern)/$1$2/g;
                 }
                 print OUTPUT;
             }
